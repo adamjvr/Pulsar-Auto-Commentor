@@ -1,0 +1,77 @@
+{
+  "name": "chatgpt-autocomment",
+  "main": "./lib/main",
+  "version": "0.3.0",
+  "description": "Pulsar package: right-click selected code to auto-insert comments using the OpenAI API.",
+  "keywords": [
+    "pulsar",
+    "atom",
+    "openai",
+    "chatgpt",
+    "comments"
+  ],
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0",
+    "pulsar": ">=1.0.0"
+  },
+  "activationCommands": {
+    "atom-workspace": [
+      "chatgpt-autocomment:comment-selection-minimal",
+      "chatgpt-autocomment:comment-selection-medium",
+      "chatgpt-autocomment:comment-selection-verbose",
+      "chatgpt-autocomment:set-api-key",
+      "chatgpt-autocomment:clear-api-key"
+    ]
+  },
+  "consumedServices": {
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
+      }
+    }
+  },
+  "dependencies": {
+    "keytar": "^7.9.0",
+    "node-fetch": "^2.7.0"
+  },
+  "configSchema": {
+    "model": {
+      "title": "OpenAI model",
+      "description": "Model to use for comment generation.",
+      "type": "string",
+      "default": "gpt-4.1-mini",
+      "order": 1
+    },
+    "apiBaseUrl": {
+      "title": "OpenAI API base URL",
+      "description": "Leave default unless you are using a proxy.",
+      "type": "string",
+      "default": "https://api.openai.com",
+      "order": 2
+    },
+    "requestTimeoutMs": {
+      "title": "Request timeout (ms)",
+      "description": "How long to wait before aborting the request.",
+      "type": "integer",
+      "default": 60000,
+      "minimum": 5000,
+      "order": 3
+    },
+    "maxSelectionChars": {
+      "title": "Max selection size (characters)",
+      "description": "Prevent accidentally sending huge selections. The plugin will refuse if the selection is larger than this.",
+      "type": "integer",
+      "default": 25000,
+      "minimum": 1000,
+      "order": 4
+    },
+    "showStatusBarProgress": {
+      "title": "Show status bar progress",
+      "description": "Show a live timer in the status bar while the request runs.",
+      "type": "boolean",
+      "default": true,
+      "order": 5
+    }
+  }
+}
